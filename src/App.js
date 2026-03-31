@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import Buscador from "./components/Buscador/Buscador";
+import SectionPopular from "./components/SectionPopular/SectionPopular";
+import SectionPlaying from "./components/sectionPlaying/sectionPlaying";
+import SectionPopularShows from "./components/SectionPopularShows/SectionPopularShows";
+import SectionShowsAiring from "./components/SectionShowsAiring/SectionShowsAiring";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <body>
+      <div className="container">
+        <h1>UdeSA Movies</h1>
+        
+        <Header />
+
+        <Buscador />
+
+        <h2 class="alert alert-primary">Popular movies this week</h2>
+        <SectionPopular />
+
+        <h2 class="alert alert-primary">Movies now playing</h2>
+        <SectionPlaying />
+
+        <h2 class="alert alert-warning">Popular TV shows this week</h2>
+        <SectionPopularShows/>
+
+        <h2 class="alert alert-warning">TV shows airing today</h2>
+        <SectionShowsAiring/>
+
+        <Footer />
+      </div>
+    </body>
   );
 }
 
