@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class UnaPeliPopular extends Component {
+class UnaSeriePopular extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,7 +34,7 @@ class UnaPeliPopular extends Component {
         }
 
         return (
-            <article className='single-card-movie'>
+            <article className='single-card-playing'>
                 <img src={`https://image.tmdb.org/t/p/w342/${this.props.info.poster_path}`} alt="" className="card-img-top" />
                 <div className="cardBody">
                     <h5 className="card-title">{this.props.info.title}</h5>
@@ -48,4 +48,4 @@ class UnaPeliPopular extends Component {
     }
 }
 
-export default UnaPeliPopular;
+export default UnaSeriePopular;
