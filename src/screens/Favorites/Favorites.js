@@ -1,18 +1,10 @@
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import Buscador from "./components/Buscador/Buscador";
+import React from "react";
 
 function Favorites() {
   return (
     <body>
       <div className="container">
         <h1>UdeSA Movies</h1>
-        
-        <Header />
-
-        <Buscador />
-
-        <Footer />
       </div>
     </body>
   );

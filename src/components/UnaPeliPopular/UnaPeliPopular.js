@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import PeliculaDetalle from "../PeliculaDetalle/PeliculaDetalle";
 
 class UnaPeliPopular extends Component {
     constructor(props) {
@@ -43,6 +45,7 @@ class UnaPeliPopular extends Component {
                     <button className='btn btn-primary' onClick={this.aparecer}>Ver más</button>
                     <a href="" class="btn alert-primary">🩶</a>
                 </div>
+                <Link className="" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
             </article>
         )
     }

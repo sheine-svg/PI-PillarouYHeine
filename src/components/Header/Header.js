@@ -1,49 +1,15 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
-let menues = [
-    {
-        route: "/",
-        name: "Home"
-    },
-    {
-        route: "/login",
-        name: "Login"
-    },
-    {
-        route: "/crearcuenta",
-        name: "Crear cuenta"
-    },
-    {
-        route: "/favoritos",
-        name: "Favoritos"
-    }
-];
-
-function Header() {
+function Header (props) {
     return (
-        <nav>
-            <ul class="nav nav-tabs my-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="movies.html">Películas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="series.html">Series</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="favorites.html">Favoritas</a>
-                </li>
-                <li class="nav-item ml-auto">
-                    <a class="nav-link" href="register.html">Registro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
+        <nav>    
+            <ul className="nav nav-tabs my-4">
+                {props.menu.map(menu => <li className="nav-item" key={menu.route}> <Link className="nav-link" to={menu.route}> {menu.name} </Link></li>)}
             </ul>
         </nav>
     );
-}
-
+};
 export default Header;
+
+/*revisar clases*/

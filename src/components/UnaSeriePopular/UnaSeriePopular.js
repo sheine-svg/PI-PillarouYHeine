@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Link} from 'react-router-dom';
+import SerieDetalle from "../SerieDetalle/SerieDetalle";
 
 class UnaSeriePopular extends Component {
     constructor(props) {
@@ -43,6 +45,7 @@ class UnaSeriePopular extends Component {
                     <button className='btn btn-primary' onClick={this.aparecer}>Ver más</button>
                     <a href="" class="btn alert-primary">🩶</a>
                 </div>
+                <Link className="" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
             </article>
         )
     }
