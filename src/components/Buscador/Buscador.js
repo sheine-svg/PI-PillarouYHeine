@@ -8,5 +8,5 @@ function Buscador() {
         </form>
     );
 }
-//prueba Oli
+
 export default Buscador;

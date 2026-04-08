@@ -1,5 +1,24 @@
 import React from "react";
 
+let menues = [
+    {
+        route: "/",
+        name: "Home"
+    },
+    {
+        route: "/login",
+        name: "Login"
+    },
+    {
+        route: "/crearcuenta",
+        name: "Crear cuenta"
+    },
+    {
+        route: "/favoritos",
+        name: "Favoritos"
+    }
+];
+
 function Header() {
     return (
         <nav>
