@@ -13,7 +13,7 @@ class PeliculaDetalle extends Component {
     componentDidMount () {
         const id = this.props.match.params.id;
 
-        fetch(`https://api.themoviedb.org/3/movie/?${id}?api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
                 .then( response => response.json())
                 .then( data => this.setState(
                     {pelicula: data}
@@ -29,19 +29,16 @@ class PeliculaDetalle extends Component {
         }
 
             return(
-                console.log(pelicula)
-                /*
                 <section className="row">
                     <h2 className="alert alert-primary">{pelicula.title}</h2>
                     <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${pelicula.poster_path}`} alt=""/>
                     <section class="col-md-6 info">
-                        <p className="description">{pelicula.overview}</p>
-                        <p className="mt-0" id="votes"><strong>{pelicula.vote_average}</strong></p>
-                        <p className="mt-0 mb-0" id="release-date"><strong>{pelicula.release_date}</strong></p>
+                        <p className="description"> Descripción: {pelicula.overview}</p>
+                        <p className="mt-0" id="votes"><strong>Rating: {pelicula.vote_average}</strong></p>
+                        <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
                         <a href="" className="btn alert-primary">🩶</a>
                     </section>
                 </section>
-                */
         )
     }
 }
