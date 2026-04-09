@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import PeliculaDetalle from "../PeliculaDetalle/PeliculaDetalle";
+import PeliculaDetalle from "../../screens/PeliculaDetalle/PeliculaDetalle";
 
 class UnaPeliPopular extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class UnaPeliPopular extends Component {
 
     mostrarMas = () => {
         this.setState({
-            mostrar: !this.state.descripcion
+            descripcion: !this.state.descripcion
         });
     }
 
@@ -42,10 +42,9 @@ class UnaPeliPopular extends Component {
                     <h5 className="card-title">{this.props.info.title}</h5>
                     <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
                     {seccion}
-                    <button className='btn btn-primary' onClick={this.aparecer}>Ver más</button>
-                    <a href="" class="btn alert-primary">🩶</a>
+                    <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
+                    <a href="" className="btn alert-primary">🩶</a>
                 </div>
-                <Link className="" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
             </article>
         )
     }
