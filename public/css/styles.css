@@ -96,6 +96,18 @@ nav {
     font-weight: 500;
 }
 
+.loaderContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loaderGif{
+    width: 80px;
+    height: 80px;
+}
+
 @media(min-width: 765px){
     nav {
         grid-template-columns: 1fr;

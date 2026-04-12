@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Loader from '../../components/Loader/Loader';
 
 const apiKey = "ca76634b9f3c10dbf49b0d77c7b2db49";
 
@@ -25,17 +26,19 @@ class PeliculaDetalle extends Component {
         const {pelicula} = this.state;
 
         if (!pelicula) {
-            return <p>Cargando...</p>;
+            return <Loader />;
         }
 
             return(
                 <section className="row">
                     <h2 className="alert alert-primary">{pelicula.title}</h2>
                     <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${pelicula.poster_path}`} alt=""/>
-                    <section class="col-md-6 info">
-                        <p className="description"> Descripción: {pelicula.overview}</p>
+                    <section className="col-md-6 info">
+                        <p className="description"><strong>Descripción:</strong> {pelicula.overview}</p>
+                        <p className="mt-0"><strong>Géneros:</strong> {pelicula.genres.map(genero => genero.name)}</p>
                         <p className="mt-0" id="votes"><strong>Rating: {pelicula.vote_average}</strong></p>
                         <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
+                        <p class="mt-0 mb-0 length"><strong>Duración:</strong> {}</p>
                         
                         <a href="" className="btn alert-primary">🩶</a>
                     </section>
@@ -46,6 +49,8 @@ class PeliculaDetalle extends Component {
 
 /*
 Duración está en la consigna pero no en la API
-Origen de la película tampoco aparece*/
+
+cómo hago para separar cada género en el mapeo. chat sugirió .join(", ") después de name
+*/
 
 export default PeliculaDetalle;

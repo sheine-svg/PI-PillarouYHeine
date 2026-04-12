@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import UnaPeliPopular from "../UnaPeliPopular/UnaPeliPopular";
+import Loader from "../Loader/Loader";
 import {Link} from 'react-router-dom';
 
 const apiKey = "ca76634b9f3c10dbf49b0d77c7b2db49";
@@ -26,7 +27,7 @@ class SectionPopular extends Component {
         return(
                 <section className='row cards' id="movies">
                     {this.state.arrayPeliculasPopulares.length === 0 ?
-                    <h3>Cargando...</h3> : 
+                    <Loader /> : 
                     this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} /> )
                     }
                     <Link className="btn btn-primary" to={`/TodaslasPelis`}>Ver todas las películas</Link>
