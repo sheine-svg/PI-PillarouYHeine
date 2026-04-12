@@ -30,7 +30,7 @@ class CrearCuenta extends Component {
     }
 
     controlarCampos = () => {
-        if (this.state.password.length <= 5) {
+        if (this.state.password.length < 6) {
             this.setState({
                 error: "La contraseña debe tener al menos 6 caracteres"
             });

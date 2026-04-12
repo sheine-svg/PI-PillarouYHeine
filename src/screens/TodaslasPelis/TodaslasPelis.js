@@ -1,10 +1,9 @@
 import React, {Component} from "react";
-import UnaPeliPopular from "../UnaPeliPopular/UnaPeliPopular";
-import {Link} from 'react-router-dom';
+import UnaPeliPopular from "../../components/UnaPeliPopular/UnaPeliPopular";
 
 const apiKey = "ca76634b9f3c10dbf49b0d77c7b2db49";
 
-class SectionPopular extends Component {
+class TodaslasPelis extends Component {
     constructor (props) {
         super (props)
         this.state = {
@@ -16,23 +15,22 @@ class SectionPopular extends Component {
         fetch("https://api.themoviedb.org/3/movie/popular?api_key="+apiKey)
                 .then( response => response.json())
                 .then( data => this.setState(
-                    {arrayPeliculasPopulares: data.results.slice(0, 4)}
+                    {arrayPeliculasPopulares: data.results}
                 ))
                 .catch( error => console.log(error))
     }
 
     render () {
-    
         return(
                 <section className='row cards' id="movies">
+                    <h2 className="alert alert-primary">Todas las películas populares</h2>
                     {this.state.arrayPeliculasPopulares.length === 0 ?
                     <h3>Cargando...</h3> : 
                     this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} /> )
                     }
-                    <Link className="btn btn-primary" to={`/TodaslasPelis`}>Ver todas las películas</Link>
                 </section>
         )
     }
 }
 
-export default SectionPopular;
+export default TodaslasPelis;

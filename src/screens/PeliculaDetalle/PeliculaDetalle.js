@@ -36,6 +36,7 @@ class PeliculaDetalle extends Component {
                         <p className="description"> Descripción: {pelicula.overview}</p>
                         <p className="mt-0" id="votes"><strong>Rating: {pelicula.vote_average}</strong></p>
                         <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
+                        
                         <a href="" className="btn alert-primary">🩶</a>
                     </section>
                 </section>

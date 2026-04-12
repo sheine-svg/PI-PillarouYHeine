@@ -85,6 +85,17 @@ nav {
     width: 15%;
 }
 
+.divNotFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mjeError {
+    font-size: xx-large;
+    font-weight: 500;
+}
+
 @media(min-width: 765px){
     nav {
         grid-template-columns: 1fr;

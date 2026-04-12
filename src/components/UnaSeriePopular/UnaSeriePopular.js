@@ -12,7 +12,7 @@ class UnaSeriePopular extends Component {
 
     mostrarMas = () => {
         this.setState({
-            mostrar: !this.state.descripcion
+            descripcion: !this.state.descripcion
         });
     }
 
@@ -42,13 +42,17 @@ class UnaSeriePopular extends Component {
                     <h5 className="card-title">{this.props.info.title}</h5>
                     <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
                     {seccion}
-                    <button className='btn btn-primary' onClick={this.aparecer}>Ver más</button>
+                    <Link className="btn btn-primary" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
                     <a href="" className="btn alert-primary">🩶</a>
                 </div>
-                <Link className="" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
             </article>
         )
     }
 }
 
 export default UnaSeriePopular;
+
+/*
+                    <button className='btn btn-primary' onClick={this.aparecer}>Ver más</button>
+
+*/
