@@ -6,7 +6,7 @@ import Buscador from "../../components/Buscador/Buscador";
 function Home(){
     return(
         <div>
-            <Buscador />
+            <Buscador/>
 
             <h2 className="alert alert-primary">Popular movies</h2>
             <SectionPopular />

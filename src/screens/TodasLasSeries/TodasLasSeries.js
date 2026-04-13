@@ -28,7 +28,7 @@ class TodasLasSeries extends Component {
                 <section className='row cards' id="now-playing">
                     {this.state.arrayPeliculasPlaying.length === 0 ?
                     <Loader /> : 
-                    this.state.arrayPeliculasPlaying.map(peli => <UnaSeriePopular key={peli.id} info={peli} /> )
+                    this.state.arrayPeliculasPlaying.map(serie => <UnaSeriePopular key={serie.id} info={serie} /> )
                     }
                 </section>
             </div>

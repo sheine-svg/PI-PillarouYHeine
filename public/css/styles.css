@@ -108,6 +108,16 @@ nav {
     height: 80px;
 }
 
+.gifError{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.inputOpciones{
+    color: black;
+}
+
 @media(min-width: 765px){
     nav {
         grid-template-columns: 1fr;

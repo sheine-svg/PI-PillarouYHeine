@@ -9,6 +9,7 @@ import Home from "./screens/Home/Home";
 import Favorites from "./screens/Favorites/Favorites";
 import TodaslasPelis from "./screens/TodaslasPelis/TodaslasPelis";
 import TodasLasSeries from "./screens/TodasLasSeries/TodasLasSeries";
+import ResultadosBusqueda from "./screens/ResultadosBusqueda/ResultadosBusqueda";
 import {Route, Switch} from "react-router-dom";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/Favorites" component={Favorites} />
           <Route path="/TodaslasPelis" component={TodaslasPelis} />
           <Route path="/TodasLasSeries" component={TodasLasSeries} />
+          <Route path="/ResultadosBusqueda/:busqueda/:tipo" component={ResultadosBusqueda} />
           <Route path="*" component={NotFound}/>
         </Switch>
 
