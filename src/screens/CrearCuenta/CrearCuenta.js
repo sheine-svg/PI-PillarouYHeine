@@ -36,6 +36,12 @@ class CrearCuenta extends Component {
             });
             return;
         }
+        if (!this.state.mail.includes("@")) {
+            this.setState({
+                error: "El mail debe contener @"
+            });
+            return;
+        }
         if (this.state.mail === "" || this.state.password === "") {
             this.setState({
                 error: "Debes completar todos los campos"
@@ -76,7 +82,7 @@ class CrearCuenta extends Component {
                     <form onSubmit={(event) => this.evitarSubmit(event)}>
                         <div className="form-group">
                             <label>Mail:</label>
-                            <input type="mail" onChange={(event) => this.controlarMail(event)} value={this.state.mail} id="email" placeholder="Ingresá tu email" className="form-control"/>
+                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} id="email" placeholder="Ingresá tu email" className="form-control"/>
                         </div>
 
                         <div className="form-group">

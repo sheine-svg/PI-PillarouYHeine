@@ -8,16 +8,24 @@ function Navbar () {
             name: "Home"
         },
         {
+            route: "/TodaslasPelis",
+            name: "Películas"
+        },
+        {
+            route: "/TodasLasSeries",
+            name: "Series"
+        },
+        {
+            route: "/Favoritos",
+            name: "Favoritos"
+        },
+        {
             route: "/Login",
             name: "Login"
         },
         {
             route: "/CrearCuenta",
             name: "Crear Cuenta"
-        },
-        {
-            route: "/Favoritos",
-            name: "Favoritos"
         }
     ];
     return (

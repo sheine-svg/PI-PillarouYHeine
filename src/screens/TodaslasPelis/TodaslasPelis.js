@@ -8,7 +8,8 @@ class TodaslasPelis extends Component {
     constructor (props) {
         super (props)
         this.state = {
-            arrayPeliculasPopulares: []
+            arrayPeliculasPopulares: [],
+            masArrayPeliculasPopulares: [],
         }
     }
 
@@ -16,22 +17,41 @@ class TodaslasPelis extends Component {
         fetch("https://api.themoviedb.org/3/movie/popular?api_key="+apiKey)
                 .then( response => response.json())
                 .then( data => this.setState(
-                    {arrayPeliculasPopulares: data.results}
+                    {arrayPeliculasPopulares: data.results,
+                        masArrayPeliculasPopulares: data.total_pages.results}
+                ))
+                .catch( error => console.log(error))
+    }
+
+    cargarMasPeliculas() {
+        fetch(this.state.masArrayPeliculasPopulares)
+            .then( response => response.json())
+                .then( data => this.setState({
+                    arrayPeliculasPopulares: this.state.arrayPeliculasPopulares.concat(data.results),
+                    masArrayPeliculasPopulares: data.results
+                }
                 ))
                 .catch( error => console.log(error))
     }
 
     render () {
         return(
+            <div>
+                <h2 className="alert alert-primary">Todas las películas populares</h2>
                 <section className='row cards' id="movies">
-                    <h2 className="alert alert-primary">Todas las películas populares</h2>
                     {this.state.arrayPeliculasPopulares.length === 0 ?
                     <Loader /> : 
                     this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} /> )
                     }
                 </section>
+                <section>
+                    <button onClick={() => this.cargarMasPeliculas()}>Mas películas</button>
+                </section>
+            </div>
         )
     }
 }
+
+/*Estructura OK, preguntar sobre la API*/
 
 export default TodaslasPelis;

@@ -23,13 +23,15 @@ class TodasLasSeries extends Component {
 
     render () {
         return(
+            <div>
+                <h2 className="alert alert-primary">Todas las series populares</h2>
                 <section className='row cards' id="now-playing">
-                    <h2 className="alert alert-primary">Todas las series populares</h2>
                     {this.state.arrayPeliculasPlaying.length === 0 ?
                     <Loader /> : 
                     this.state.arrayPeliculasPlaying.map(peli => <UnaSeriePopular key={peli.id} info={peli} /> )
                     }
                 </section>
+            </div>
         )
     }
 }

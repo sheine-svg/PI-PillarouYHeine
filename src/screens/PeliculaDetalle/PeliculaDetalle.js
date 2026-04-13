@@ -30,26 +30,28 @@ class PeliculaDetalle extends Component {
         }
 
             return(
-                <section className="row">
+                <div>
                     <h2 className="alert alert-primary">{pelicula.title}</h2>
-                    <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${pelicula.poster_path}`} alt=""/>
-                    <section className="col-md-6 info">
-                        <p className="description"><strong>Descripción:</strong> {pelicula.overview}</p>
-                        <p className="mt-0"><strong>Géneros:</strong> {pelicula.genres.map(genero => genero.name)}</p>
-                        <p className="mt-0" id="votes"><strong>Rating: {pelicula.vote_average}</strong></p>
-                        <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
-                        <p class="mt-0 mb-0 length"><strong>Duración:</strong> {}</p>
-                        
-                        <a href="" className="btn alert-primary">🩶</a>
+                    <section className="row">
+                        <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${pelicula.poster_path}`} alt=""/>
+                        <section className="col-md-6 info">
+                            <p className="description"><strong>Descripción:</strong> {pelicula.overview}</p>
+                            <p className="mt-0"><strong>Géneros:</strong> {pelicula.genres.map(genero => genero.name)}</p>
+                            <p className="mt-0" id="votes"><strong>Rating: {pelicula.vote_average}</strong></p>
+                            <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
+                            <p class="mt-0 mb-0 length"><strong>Duración:</strong> {}</p>
+                            
+                            <a href="" className="btn alert-primary">🩶</a>
+                        </section>
                     </section>
-                </section>
+                </div>
         )
     }
 }
 
-/*
-Duración está en la consigna pero no en la API
 
+/*
+DURACION API
 cómo hago para separar cada género en el mapeo. chat sugirió .join(", ") después de name
 */
 

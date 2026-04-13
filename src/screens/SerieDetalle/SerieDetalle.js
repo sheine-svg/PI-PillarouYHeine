@@ -30,17 +30,19 @@ class SerieDetalle extends Component {
         }
 
             return(
-            <section className="row">
-                <section className="col-md-6 info">
-                    <h2 className="alert -alert-warning">{serie.name}</h2>
-                    <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`}/>
-                    <p className="description"> <strong>Descripción:</strong> {serie.overview}</p>
-                    <p className="mt-0"><strong>Géneros:</strong> {serie.genres.map(genero => genero.name)}</p>
-                    <p><strong>Rating:</strong> {serie.vote_average}</p>
-                    <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno:</strong> {serie.first_air_date}</p>
-                    <a href="" className="btn alert-primary">🩶</a>
-                </section>
-            </section>
+                <div>
+                    <h2 className="alert alert-warning">{serie.name}</h2>
+                    <section className="row">
+                        <section className="col-md-6 info">
+                            <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`}/>
+                            <p className="description"> <strong>Descripción:</strong> {serie.overview}</p>
+                            <p className="mt-0"><strong>Géneros:</strong> {serie.genres.map(genero => genero.name)}</p>
+                            <p><strong>Rating:</strong> {serie.vote_average}</p>
+                            <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno:</strong> {serie.first_air_date}</p>
+                            <a href="" className="btn alert-primary">🩶</a>
+                        </section>
+                    </section>
+                </div>
         )
     }
 }

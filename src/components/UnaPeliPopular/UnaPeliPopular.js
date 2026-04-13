@@ -25,7 +25,7 @@ class UnaPeliPopular extends Component {
         }
         else {
             ver = <p>Ocultar descripción</p>
-            clase = "show"
+            clase = "show card-text"
         }
 
         let seccion;
