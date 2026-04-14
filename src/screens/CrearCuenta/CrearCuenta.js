@@ -29,7 +29,9 @@ class CrearCuenta extends Component {
         });
     }
 
-    controlarCampos = () => {
+    controlarCampos() {
+        let usuariosLocalStorage = localStorage.getItem("usuarios")
+        let usuariosParseado = JSON.parse(usuariosLocalStorage)
         if (this.state.password.length < 6) {
             this.setState({
                 error: "La contraseña debe tener al menos 6 caracteres"
@@ -46,34 +48,31 @@ class CrearCuenta extends Component {
             this.setState({
                 error: "Debes completar todos los campos"
             });
+            return;
+        }
+
+        let usuario = {
+            mail: this.state.mail,
+            password: this.state.password
+        }
+
+        if (usuariosLocalStorage == null) {
+            let arrayAEnviar = [];
+            arrayAEnviar.push(usuario);
+            localStorage.setItem("usuarios", JSON.stringify(arrayAEnviar))
+            this.props.history.push("/Login")
         } else {
-            if (this.state.todosLosMails.includes(this.state.mail)){
+            if (usuariosParseado.find(user => user.mail === this.state.mail)) {
                 this.setState({
                     error: "El mail ya existe"
                 });
                 return;
             }
-
-            let mailToString = JSON.stringify(this.state.mail)
-            localStorage.setItem("mail", mailToString);
-            let recuperoStorageMail = localStorage.getItem('mail');
-            let mailsRecuperados = JSON.parse(recuperoStorageMail);
-            this.state.todosLosMails.push(mailsRecuperados)
-
-            let passwordToString = JSON.stringify(this.state.password)
-            localStorage.setItem("password", passwordToString);
-            
-            this.state.usuarios.push({
-                mail: this.state.mail,
-                password: this.state.password,
-            })
-            console.log(this.state.usuarios);
-            
-            this.setState({
-                    error: ""
-                });
-        }
-    }
+            usuariosParseado.push(usuario);
+            localStorage.setItem("usuarios", JSON.stringify(usuariosParseado));
+            this.props.history.push("/Login");
+        };
+    };
 
     render() {
         return (
@@ -82,12 +81,12 @@ class CrearCuenta extends Component {
                     <form onSubmit={(event) => this.evitarSubmit(event)}>
                         <div className="form-group">
                             <label>Mail:</label>
-                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} id="email" placeholder="Ingresá tu email" className="form-control"/>
+                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} id="email" placeholder="Ingresá tu email" className="form-control" />
                         </div>
 
                         <div className="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña"/>
+                            <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña" />
                         </div>
                         {this.state.error}
                         <button onClick={() => this.controlarCampos()} type="submit" className="btn btn-primary btn-block">Registrarse</button>

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies()
 
 class Login extends Component {
     constructor(props) {
@@ -28,7 +31,7 @@ class Login extends Component {
         });
     }
 
-    validacionLogin = () => {
+    onSubmit(mail, password){
         let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
         let filtrarUsuario = usuarios.filter(unUsuario =>
@@ -45,6 +48,12 @@ class Login extends Component {
             this.setState({
                 error: "Usuario correcto!"
             })
+            this.props.history.push("/")
+            if (this.state.mail) {
+	            cookies.set("user", this.state.email)
+                console.log(cookies)
+            }
+
             return;
         } else {
             this.setState({
@@ -68,7 +77,7 @@ class Login extends Component {
                             <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña"/>
                         </div>
                         {this.state.error}
-                        <button onClick={() => this.validacionLogin()} type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
+                        <button onClick={() => this.onSubmit()} type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
                     </form>
                     <p className="mt-3 text-center">¿No tenés cuenta? <Link to="/CrearCuenta">Registrarse</Link></p>
                 </div>
