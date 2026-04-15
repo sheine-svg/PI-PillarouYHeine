@@ -48,7 +48,7 @@ class Favorites extends Component {
   render() {
     return (
       <section className="container">
-        <h2>Películas favoritas</h2>
+        <h2 class="alert alert-primary">Peliculas Favoritas</h2>
         {this.state.cargandoPelis ? <Loader /> :
           this.state.pelisFavs.length === 0 ? (<p>Aún no seleccionaste ninguna película como favorita</p>) :
             (<section className="row cards">
@@ -56,7 +56,7 @@ class Favorites extends Component {
             </section>
             )}
 
-        <h2>Series favoritas</h2>
+        <h2 class="alert alert-warning">Series Favoritas</h2>
         {this.state.cargandoSeries ? <Loader /> :
           this.state.seriesFavs.length === 0 ? (<p>Aún no seleccionaste ninguna serie como favorita</p>) :
             (<section className="row cards">

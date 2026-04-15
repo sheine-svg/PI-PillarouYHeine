@@ -10,6 +10,7 @@ class TodaslasPelis extends Component {
         this.state = {
             arrayPeliculasPopulares: [],
             masArrayPeliculasPopulares: [],
+            contador: 0,
         }
     }
 
@@ -24,14 +25,18 @@ class TodaslasPelis extends Component {
     }
 
     cargarMasPeliculas() {
-        fetch(this.state.masArrayPeliculasPopulares)
-            .then( response => response.json())
+        fetch(`"https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}%?page=${this.state.contador}"`)
+                .then( response => response.json())
                 .then( data => this.setState({
                     arrayPeliculasPopulares: this.state.arrayPeliculasPopulares.concat(data.results),
                     masArrayPeliculasPopulares: data.results
                 }
                 ))
                 .catch( error => console.log(error))
+        
+        this.setState({
+            contador: this.state.contador + 1
+        })
     }
 
     render () {
@@ -45,13 +50,11 @@ class TodaslasPelis extends Component {
                     }
                 </section>
                 <section>
-                    <button onClick={() => this.cargarMasPeliculas()}>Mas películas</button>
+                    <button className="btn btn-primary" onClick={() => this.cargarMasPeliculas()}>Mas películas</button>
                 </section>
             </div>
         )
     }
 }
-
-/*Estructura OK, preguntar sobre la API*/
 
 export default TodaslasPelis;

@@ -41,10 +41,10 @@ class Buscador extends Component {
     render (){
         return(
             <form onSubmit={(event) => this.evitarSubmit(event)} className="search-form" method="get">
-                <input onChange={(e) => this.controlarBoton(e)} type="radio" className="inputOpciones" name="contenido" value="movie" required/> 
+                <input onChange={(e) => this.controlarBoton(e)} type="radio" className="input-radio" name="contenido" value="movie" required/> 
                 <span>Película</span>
 
-                <input onChange={(e) => this.controlarBoton(e)} type="radio" className="inputOpciones" name="contenido" value="tv" required/>
+                <input onChange={(e) => this.controlarBoton(e)} type="radio" className="input-radio" name="contenido" value="tv" required/>
                 <span>Serie</span>
                 
                 <input type="text" onChange={(e) => this.controlarCambios(e)} name="searchData" placeholder="Buscar..." value={this.state.campo}/>

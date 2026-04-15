@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 class UnaPeliPopular extends Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -22,13 +26,13 @@ class UnaPeliPopular extends Component {
 
     }
 
-    mostrarMas = () => {
+    mostrarMas() {
         this.setState({
             descripcion: !this.state.descripcion
         });
     }
 
-    agregarOSacarFav = () => {
+    agregarOSacarFav() {
         let recuperoStorage = localStorage.getItem("pelisFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
@@ -39,6 +43,7 @@ class UnaPeliPopular extends Component {
             this.setState({
                 esFav: false
             });
+            return;
         } else{
             favoritos.push(this.props.info.id);
             localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
@@ -46,7 +51,8 @@ class UnaPeliPopular extends Component {
             this.setState({
                 esFav: true
             });
-        }
+            return;
+        }  
     }
 
     render() {
@@ -54,7 +60,7 @@ class UnaPeliPopular extends Component {
 
         if (this.state.descripcion == false) {
             ver = <p>Ver descripción</p>
-            let clase = "hide" // agregar las clases hide y show al css
+            let clase = "hide" 
         }
         else {
             ver = <p>Ocultar descripción</p>
@@ -68,6 +74,12 @@ class UnaPeliPopular extends Component {
             );
         }
 
+        let botonFav;
+        let usuarioLogueado = cookies.get("user")
+        if (usuarioLogueado) {
+            botonFav = (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+        }
+
         return (
             <article className='single-card-movie'>
                 <img src={`https://image.tmdb.org/t/p/w342/${this.props.info.poster_path}`} alt="" className="card-img-top" />
@@ -76,7 +88,7 @@ class UnaPeliPopular extends Component {
                     <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
-                    <button onClick={this.agregarOSacarFav} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>
+                    {botonFav}
                 </div>
             </article>
         )
