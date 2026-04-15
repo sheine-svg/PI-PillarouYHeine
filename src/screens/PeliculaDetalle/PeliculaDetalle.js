@@ -41,7 +41,7 @@ class PeliculaDetalle extends Component {
                             <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {pelicula.release_date}</strong></p>
                             <p class="mt-0 mb-0 length"><strong>Duración:</strong> {}</p>
                             
-                            <a href="" className="btn alert-primary">🩶</a>
+                            <button type="button" className="btn alert-primary">🩶</button>
                         </section>
                     </section>
                 </div>

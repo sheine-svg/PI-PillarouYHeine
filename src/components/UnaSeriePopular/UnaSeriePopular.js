@@ -43,7 +43,7 @@ class UnaSeriePopular extends Component {
                     <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
-                    <a href="" className="btn alert-primary">🩶</a>
+                    <button type="button" className="btn alert-primary">🩶</button>
                 </div>
             </article>
         )

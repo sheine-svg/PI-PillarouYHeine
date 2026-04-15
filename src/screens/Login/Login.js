@@ -49,11 +49,13 @@ class Login extends Component {
                 error: "Usuario correcto!"
             })
             this.props.history.push("/")
-            if (this.state.mail) {
-	            cookies.set("user", this.state.email)
-                console.log(cookies)
-            }
 
+            if (this.state.mail) {
+	            cookies.set("user", this.state.mail)
+                
+
+
+            }
             return;
         } else {
             this.setState({
@@ -87,3 +89,5 @@ class Login extends Component {
 }
 
 export default Login;
+
+// funciona bien la cookie pero hay q actualizar para q desaparezcan las cosas

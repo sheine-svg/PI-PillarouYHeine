@@ -39,7 +39,7 @@ class SerieDetalle extends Component {
                             <p className="mt-0"><strong>Géneros:</strong> {serie.genres.map(genero => genero.name)}</p>
                             <p><strong>Rating:</strong> {serie.vote_average}</p>
                             <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno:</strong> {serie.first_air_date}</p>
-                            <a href="" className="btn alert-primary">🩶</a>
+                            <button type="button" className="btn alert-primary">🩶</button>
                         </section>
                     </section>
                 </div>

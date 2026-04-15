@@ -1,13 +1,25 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import PeliculaDetalle from "../../screens/PeliculaDetalle/PeliculaDetalle";
 
 class UnaPeliPopular extends Component {
     constructor(props) {
         super(props)
         this.state = {
             descripcion: false,
+            esFav: false
         }
+    }
+
+    componentDidMount(){
+        let recuperoStorage = localStorage.getItem("pelisFavs");
+        let favoritos = JSON.parse(recuperoStorage) || [];
+
+        if (favoritos.includes(this.props.info.id)) {
+            this.setState({
+                esFav: true
+            });
+        }
+
     }
 
     mostrarMas = () => {
@@ -16,16 +28,37 @@ class UnaPeliPopular extends Component {
         });
     }
 
+    agregarOSacarFav = () => {
+        let recuperoStorage = localStorage.getItem("pelisFavs");
+        let favoritos = JSON.parse(recuperoStorage) || [];
+
+        if (favoritos.includes(this.props.info.id)) {
+            let pelisFiltradas = favoritos.filter(id => id !== this.props.info.id);
+            localStorage.setItem("pelisFavs", JSON.stringify(pelisFiltradas));
+
+            this.setState({
+                esFav: false
+            });
+        } else{
+            favoritos.push(this.props.info.id);
+            localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
+
+            this.setState({
+                esFav: true
+            });
+        }
+    }
+
     render() {
         let ver;
-        let clase;
+
         if (this.state.descripcion == false) {
             ver = <p>Ver descripción</p>
-            clase = "hide" // agregar las clases hide y show al css
+            let clase = "hide" // agregar las clases hide y show al css
         }
         else {
             ver = <p>Ocultar descripción</p>
-            clase = "show card-text"
+            let clase = "show card-text"
         }
 
         let seccion;
@@ -43,7 +76,7 @@ class UnaPeliPopular extends Component {
                     <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
-                    <a href="" className="btn alert-primary">🩶</a>
+                    <button onClick={this.agregarOSacarFav} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>
                 </div>
             </article>
         )
