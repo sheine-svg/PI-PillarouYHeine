@@ -15,7 +15,7 @@ class SerieDetalle extends Component {
     }
 
     componentDidMount () {
-        const id = this.props.match.params.id;
+        const id = Number(this.props.match.params.id);
 
         fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`)
                 .then( response => response.json())
@@ -62,7 +62,7 @@ class SerieDetalle extends Component {
         let botonFav;
         let usuarioLogueado = cookies.get("user")
         if (usuarioLogueado) {
-            botonFav = (<button onClick={ () => this.agregarOSacarFav} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+            botonFav = (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
         }
 
             return(
@@ -81,7 +81,7 @@ class SerieDetalle extends Component {
                             </section>
                         </section>
                     </div> 
-                    };
+                    }
                 </div>
         )
     }

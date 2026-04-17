@@ -8,7 +8,8 @@ class TodasLasSeries extends Component {
     constructor (props) {
         super (props)
         this.state = {
-            arrayPeliculasPlaying: []
+            arraySeriesPopulares: [],
+            contador: 1
         }
     }
 
@@ -16,7 +17,18 @@ class TodasLasSeries extends Component {
         fetch("https://api.themoviedb.org/3/tv/popular?api_key="+apiKey)
                 .then( response => response.json())
                 .then( data => this.setState(
-                    {arrayPeliculasPlaying: data.results}
+                    {arraySeriesPopulares: data.results}
+                ))
+                .catch( error => console.log(error))
+    }
+
+    cargarMasSeries() {
+        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${this.state.contador + 1}`)
+                .then( response => response.json())
+                .then( data => this.setState({
+                    arraySeriesPopulares: this.state.arraySeriesPopulares.concat(data.results),
+                    contador: this.state.contador + 1
+                }
                 ))
                 .catch( error => console.log(error))
     }
@@ -26,10 +38,13 @@ class TodasLasSeries extends Component {
             <div>
                 <h2 className="alert alert-primary">Todas las series populares</h2>
                 <section className='row cards' id="now-playing">
-                    {this.state.arrayPeliculasPlaying.length === 0 ?
+                    {this.state.arraySeriesPopulares.length === 0 ?
                     <Loader /> : 
-                    this.state.arrayPeliculasPlaying.map(serie => <UnaSeriePopular key={serie.id} info={serie} /> )
+                    this.state.arraySeriesPopulares.map(serie => <UnaSeriePopular key={serie.id} info={serie} /> )
                     }
+                </section>
+                <section>
+                    <button className="btn btn-primary" onClick={() => this.cargarMasSeries()}>Más series</button>
                 </section>
             </div>
         )

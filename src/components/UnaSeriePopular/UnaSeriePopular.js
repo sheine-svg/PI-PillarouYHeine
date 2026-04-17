@@ -81,7 +81,7 @@ class UnaSeriePopular extends Component {
                 <img src={`https://image.tmdb.org/t/p/w342/${this.props.info.poster_path}`} alt="" className="card-img-top" />
                 <div className="cardBody">
                     <h5 className="card-title">{this.props.info.title}</h5>
-                    <button className='btn btn-primary' onClick={this.mostrarMas}>{ver}</button>
+                    <button className='btn btn-primary' onClick={() => this.mostrarMas()}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
                     {botonFav}

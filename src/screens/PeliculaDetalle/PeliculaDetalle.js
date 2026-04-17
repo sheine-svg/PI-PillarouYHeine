@@ -15,7 +15,7 @@ class PeliculaDetalle extends Component {
     }
 
     componentDidMount() {
-        const id = this.props.match.params.id;
+        const id = Number(this.props.match.params.id);
 
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
             .then(response => response.json())
@@ -28,7 +28,6 @@ class PeliculaDetalle extends Component {
         let favoritos = JSON.parse(recuperoStorage) || [];
 
         if (favoritos.includes(id)) {
-
             this.setState({
                 esFav: true
             });
@@ -46,6 +45,7 @@ class PeliculaDetalle extends Component {
             this.setState({
                 esFav: false
             });
+
         } else {
             favoritos.push(this.state.pelicula.id);
             localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
@@ -68,7 +68,7 @@ class PeliculaDetalle extends Component {
             <div>
                 {this.state.pelicula === null ? <Loader /> :
                     <div>
-                        <h2 className="alert alert-primary">{this.state.pelicula.name}</h2>
+                        <h2 className="alert alert-primary">{this.state.pelicula.title}</h2>
                         <section className="row">
                             <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${this.state.pelicula.poster_path}`} alt="" />
                             <section className="col-md-6 info">
@@ -76,7 +76,7 @@ class PeliculaDetalle extends Component {
                                 <p className="mt-0"><strong>Géneros:</strong> {this.state.pelicula.genres.map(genero => genero.name)}</p>
                                 <p className="mt-0" id="votes"><strong>Rating: {this.state.pelicula.vote_average}</strong></p>
                                 <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {this.state.pelicula.release_date}</strong></p>
-                                <p class="mt-0 mb-0 length"><strong>Duración:</strong> { }</p>
+                                <p class="mt-0 mb-0 length"><strong>Duración:</strong> {this.state.pelicula.runtime} minutos</p>
 
                                 {botonFav}
                             </section>
