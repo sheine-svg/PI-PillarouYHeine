@@ -30,10 +30,10 @@ class SectionPopular extends Component {
                     <Loader /> : 
                     this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} /> )
                     }
-                    <Link className="btn btn-primary" to={`/TodaslasPelis`}>Ver todas las películas</Link>
+                    <Link id="todas" className="btn btn-primary" to={`/TodaslasPelis`}>Ver todas las películas</Link>
                 </section>
         )
-    }
+    } 
 }
 
 export default SectionPopular;

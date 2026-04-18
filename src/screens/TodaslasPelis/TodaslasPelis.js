@@ -10,7 +10,8 @@ class TodaslasPelis extends Component {
         this.state = {
             arrayPeliculasPopulares: [],
             contador: 1,
-            buscarPeli: ""
+            buscarPeli: "",
+            arrayPeliculasPopularesCopia: [],
         }
     }
 
@@ -18,7 +19,9 @@ class TodaslasPelis extends Component {
         fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey)
             .then(response => response.json())
             .then(data => this.setState(
-                { arrayPeliculasPopulares: data.results }
+                { arrayPeliculasPopulares: data.results,
+                    arrayPeliculasPopularesCopia: data.results
+                }
             ))
             .catch(error => console.log(error))
     }
@@ -26,11 +29,15 @@ class TodaslasPelis extends Component {
     cargarMasPeliculas() {
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.contador + 1}`)
             .then(response => response.json())
-            .then(data => this.setState({
-                arrayPeliculasPopulares: this.state.arrayPeliculasPopulares.concat(data.results),
-                contador: this.state.contador + 1
-            }
-            ))
+            .then(data => {
+                this.setState({
+                    arrayPeliculasPopulares: this.state.arrayPeliculasPopulares.concat(data.results),
+                    arrayPeliculasPopularesCopia: this.state.arrayPeliculasPopularesCopia.concat(data.results),
+                    contador: this.state.contador + 1,
+                });
+                localStorage.setItem("contadorPelis", JSON.stringify(this.state.contador + 1));
+                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(this.state.arrayPeliculasPopulares))
+            })
             .catch(error => console.log(error))
     }
 
@@ -42,23 +49,19 @@ class TodaslasPelis extends Component {
         this.setState({ buscarPeli: event.target.value });
 
         if (this.state.buscarPeli != "") {
-            let pelisFiltradas = this.state.arrayPeliculasPopulares.filter(peli =>
+            let pelisFiltradas = this.state.arrayPeliculasPopularesCopia.filter(peli =>
                 peli.title.toLowerCase().includes(this.state.buscarPeli.toLowerCase()));
 
             this.setState({
                 arrayPeliculasPopulares: pelisFiltradas
             })
-
-            if (this.state.buscarPeli === "") {
-                
-            }
         }
     }
 
     render() {
+        console.log(this.state.contador)
         return (
             <div>
-
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
                     <label>Buscar una película</label>
                     <input type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarPeli}></input>
@@ -71,6 +74,7 @@ class TodaslasPelis extends Component {
                         this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} />)
                     }
                 </section>
+
                 <section>
                     <button className="btn btn-primary" onClick={() => this.cargarMasPeliculas()}>Más películas</button>
                 </section>

@@ -14,7 +14,7 @@ class UnaPeliPopular extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount () {
         let recuperoStorage = localStorage.getItem("pelisFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
@@ -26,10 +26,10 @@ class UnaPeliPopular extends Component {
 
     }
 
-    mostrarMas() {
+    mostrarMas () {
         this.setState({
             descripcion: !this.state.descripcion
-        });
+        }); 
     }
 
     agregarOSacarFav() {
@@ -43,7 +43,6 @@ class UnaPeliPopular extends Component {
             this.setState({
                 esFav: false
             });
-            return;
         } else{
             favoritos.push(this.props.info.id);
             localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
@@ -51,33 +50,28 @@ class UnaPeliPopular extends Component {
             this.setState({
                 esFav: true
             });
-            return;
         }  
     }
 
     render() {
         let ver;
+        let clase;
 
         if (this.state.descripcion == false) {
             ver = <p>Ver descripción</p>
-            let clase = "hide" 
+            clase = "hide" 
         }
         else {
             ver = <p>Ocultar descripción</p>
-            let clase = "show card-text"
+            clase = "show card-text"
         }
 
         let seccion;
+
         if (this.state.descripcion === true) {
             seccion = (
                 <p className="card-text">{this.props.info.overview}</p>
             );
-        }
-
-        let botonFav;
-        let usuarioLogueado = cookies.get("user")
-        if (usuarioLogueado) {
-            botonFav = (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
         }
 
         return (
@@ -88,7 +82,9 @@ class UnaPeliPopular extends Component {
                     <button className='btn btn-primary' onClick={() => this.mostrarMas()}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
-                    {botonFav}
+                    { cookies.get("user") ? 
+                    (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+                    : null }
                 </div>
             </article>
         )

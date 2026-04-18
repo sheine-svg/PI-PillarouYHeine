@@ -57,13 +57,6 @@ class PeliculaDetalle extends Component {
     }
 
     render() {
-
-        let botonFav;
-        let usuarioLogueado = cookies.get("user")
-        if (usuarioLogueado) {
-            botonFav = (<button onClick={() => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
-        }
-
         return (
             <div>
                 {this.state.pelicula === null ? <Loader /> :
@@ -78,7 +71,9 @@ class PeliculaDetalle extends Component {
                                 <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {this.state.pelicula.release_date}</strong></p>
                                 <p class="mt-0 mb-0 length"><strong>Duración:</strong> {this.state.pelicula.runtime} minutos</p>
 
-                                {botonFav}
+                                { cookies.get("user") ? 
+                                (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+                                : null }
                             </section>
                         </section>
                     </div>
@@ -90,7 +85,6 @@ class PeliculaDetalle extends Component {
 
 
 /*
-DURACION API
 cómo hago para separar cada género en el mapeo. chat sugirió .join(", ") después de name
 */
 

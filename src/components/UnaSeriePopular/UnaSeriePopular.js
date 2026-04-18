@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 class UnaSeriePopular extends Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -13,18 +14,18 @@ class UnaSeriePopular extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount () {
         let recuperoStorage = localStorage.getItem("seriesFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
-        if (favoritos.includes(this.props.info.id)){
+        if (favoritos.includes(this.props.info.id)) {
             this.setState({
                 esFav: true
             });
         }
     }
 
-    mostrarMas() {
+    mostrarMas () {
         this.setState({
             descripcion: !this.state.descripcion
         });
@@ -34,7 +35,7 @@ class UnaSeriePopular extends Component {
         let recuperoStorage = localStorage.getItem("seriesFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
-        if (favoritos.includes(this.props.info.id)){
+        if (favoritos.includes(this.props.info.id)) {
             let seriesFiltradas = favoritos.filter(id => id !== this.props.info.id);
             localStorage.setItem("seriesFavs", JSON.stringify(seriesFiltradas));
 
@@ -54,37 +55,35 @@ class UnaSeriePopular extends Component {
     render() {
         let ver;
         let clase;
+
         if (this.state.descripcion == false) {
             ver = <p>Ver descripción</p>
             clase = "hide" 
         }
         else {
             ver = <p>Ocultar descripción</p>
-            clase = "show"
+            clase = "show card-text"
         }
 
         let seccion;
+
         if (this.state.descripcion === true) {
             seccion = (
                 <p className="card-text">{this.props.info.overview}</p>
             );
         }
 
-        let botonFav;
-        let usuarioLogueado = cookies.get("user")
-        if (usuarioLogueado) {
-            botonFav = (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
-        }
-
         return (
             <article className='single-card-playing'>
                 <img src={`https://image.tmdb.org/t/p/w342/${this.props.info.poster_path}`} alt="" className="card-img-top" />
                 <div className="cardBody">
-                    <h5 className="card-title">{this.props.info.title}</h5>
+                    <h5 className="card-title">{this.props.info.name}</h5>
                     <button className='btn btn-primary' onClick={() => this.mostrarMas()}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/SerieDetalle/${this.props.info.id}`}>Detalle Serie</Link>
-                    {botonFav}
+                    { cookies.get("user") ? 
+                    (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+                    : null }
                 </div>
             </article>
         )

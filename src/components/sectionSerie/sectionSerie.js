@@ -10,7 +10,7 @@ class SectionSerie extends Component {
         super (props)
         this.state = {
             arraySeries: []
-        }
+        } 
     }
 
     componentDidMount () {
@@ -27,7 +27,7 @@ class SectionSerie extends Component {
                 <section className='row cards' id="now-playing">
                     {this.state.arraySeries.length === 0 ?
                     <Loader /> : 
-                    this.state.arraySeries.map(peli => <UnaSeriePopular key={peli.id} info={peli} /> )
+                    this.state.arraySeries.map(serie => <UnaSeriePopular key={serie.id} info={serie} /> )
                     }
                     <Link id="todas" className="btn btn-primary" to={`/TodasLasSeries`}>Ver todas las series</Link>
                 </section>

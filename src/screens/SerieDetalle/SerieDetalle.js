@@ -58,13 +58,6 @@ class SerieDetalle extends Component {
     }
 
     render () {
-
-        let botonFav;
-        let usuarioLogueado = cookies.get("user")
-        if (usuarioLogueado) {
-            botonFav = (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
-        }
-
             return(
                 <div>
                     {this.state.serie === null ? <Loader /> :
@@ -77,7 +70,9 @@ class SerieDetalle extends Component {
                                 <p className="mt-0"><strong>Géneros:</strong> {this.state.serie.genres.map(genero => genero.name)}</p>
                                 <p><strong>Rating:</strong> {this.state.serie.vote_average}</p>
                                 <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno:</strong> {this.state.serie.first_air_date}</p>
-                                {botonFav}
+                                { cookies.get("user") ? 
+                                (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+                                : null }
                             </section>
                         </section>
                     </div> 
