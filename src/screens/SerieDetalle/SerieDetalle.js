@@ -67,7 +67,7 @@ class SerieDetalle extends Component {
                             <section className="col-md-6 info">
                                 <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${this.state.serie.poster_path}`}/>
                                 <p className="description"> <strong>Descripción:</strong> {this.state.serie.overview}</p>
-                                <p className="mt-0"><strong>Géneros:</strong> {this.state.serie.genres.map(genero => genero.name)}</p>
+                                <p className="mt-0"><strong>Géneros:</strong> {this.state.serie.genres.map(genero => genero.name).join(", ")}</p>
                                 <p><strong>Rating:</strong> {this.state.serie.vote_average}</p>
                                 <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno:</strong> {this.state.serie.first_air_date}</p>
                                 { cookies.get("user") ? 

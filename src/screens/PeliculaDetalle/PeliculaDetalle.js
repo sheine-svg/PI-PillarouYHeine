@@ -66,7 +66,7 @@ class PeliculaDetalle extends Component {
                             <img className="col-md-6" src={`https://image.tmdb.org/t/p/w342/${this.state.pelicula.poster_path}`} alt="" />
                             <section className="col-md-6 info">
                                 <p className="description"><strong>Descripción:</strong> {this.state.pelicula.overview}</p>
-                                <p className="mt-0"><strong>Géneros:</strong> {this.state.pelicula.genres.map(genero => genero.name)}</p>
+                                <p className="mt-0"><strong>Géneros:</strong> {this.state.pelicula.genres.map(genero => genero.name).join(", ")}</p>
                                 <p className="mt-0" id="votes"><strong>Rating: {this.state.pelicula.vote_average}</strong></p>
                                 <p className="mt-0 mb-0" id="release-date"><strong>Fecha de estreno: {this.state.pelicula.release_date}</strong></p>
                                 <p class="mt-0 mb-0 length"><strong>Duración:</strong> {this.state.pelicula.runtime} minutos</p>
@@ -82,10 +82,5 @@ class PeliculaDetalle extends Component {
         )
     }
 }
-
-
-/*
-cómo hago para separar cada género en el mapeo. chat sugirió .join(", ") después de name
-*/
 
 export default PeliculaDetalle;

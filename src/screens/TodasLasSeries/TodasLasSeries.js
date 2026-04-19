@@ -33,7 +33,7 @@ class TodasLasSeries extends Component {
             .then(data => {
                 this.setState({
                     arraySeriesPopulares: this.state.arraySeriesPopulares.concat(data.results),
-                    arraySeriesPopularesCopia: this.state.arraySeriesPopulares.concat(data.results),
+                    arraySeriesPopularesCopia: this.state.arraySeriesPopularesCopia.concat(data.results),
                     contador: this.state.contador + 1,
                 });
                 localStorage.setItem("contadorSeries", JSON.stringify(this.state.contador + 1));

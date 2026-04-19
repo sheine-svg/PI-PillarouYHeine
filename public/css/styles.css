@@ -22,6 +22,11 @@ nav {
     grid-template-columns: 5fr 1fr;
     column-gap: 5px;
 }
+
+.search-form{
+    width: 100%;
+}
+
 .filter-form {
     grid-template-columns: 1fr;
 }
@@ -116,6 +121,61 @@ nav {
 
 .inputOpciones{
     color: black;
+}
+
+.btn-success{
+    width: 140px;
+    padding: 10px;
+    height: 40px;
+}
+
+.buscadorYBoton{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.inputBuscador{
+    width: 150%;
+    height: 48px;
+    padding-left: 12px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 2%;
+}
+
+.mjeErrorBuscador{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: red;
+    font-size: 15px;
+    text-align: center;
+}
+
+.botonBuscador{
+    width: 20%;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.opcionesRadio{
+    width: 15%;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.opcionRadio{
+    margin: 0px 20px;
+    font-size: 20px;
+}
+
+.input-radio{
+    margin-right: 8px;
 }
 
 @media(min-width: 765px){

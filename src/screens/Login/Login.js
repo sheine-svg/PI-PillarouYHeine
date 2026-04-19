@@ -22,7 +22,6 @@ class Login extends Component {
         this.setState({
             mail: event.target.value
         });
-
     };
 
     controlarPassword = (event) => {
@@ -52,9 +51,6 @@ class Login extends Component {
 
             if (this.state.mail) {
 	            cookies.set("user", this.state.mail)
-                
-
-
             }
             return;
         } else {

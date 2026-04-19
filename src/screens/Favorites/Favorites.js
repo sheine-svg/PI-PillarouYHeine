@@ -17,10 +17,9 @@ class Favorites extends Component {
     let todasLasPelis = JSON.parse(localStorage.getItem("arrayTodasLasPelis") || []);
     let arrayPelisFavs = JSON.parse(localStorage.getItem("pelisFavs") || []);
     this.setState ({
-      pelisFiltradas: todasLasPelis.filter(peli => arrayPelisFavs.includes(peli.id));
+      pelisFiltradas: todasLasPelis.filter(peli => arrayPelisFavs.includes(peli.id))
     });
   }
-
 /*
   componentDidMount() {
     let pelisStorage = JSON.parse(localStorage.getItem("pelisFavs")) || [];
@@ -82,9 +81,9 @@ class Favorites extends Component {
       <section className="container">
         <h2 className="alert alert-primary">Peliculas Favoritas</h2>
         {this.state.cargandoPelis ? <Loader /> :
-          this.state.pelisFavs.length === 0 ? (<p>Aún no seleccionaste ninguna película como favorita</p>) :
+          this.state.pelisFiltradas.length === 0 ? (<p>Aún no seleccionaste ninguna película como favorita</p>) :
             (<section className="row cards">
-              {pelisFiltradas.map(peli => (<UnaPeliPopular key={peli.id} info={peli} />))}
+              {this.state.pelisFiltradas.map(peli => (<UnaPeliPopular key={peli.id} info={peli} />))}
             </section>
             )}
 
