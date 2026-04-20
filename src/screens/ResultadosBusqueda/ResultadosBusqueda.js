@@ -23,7 +23,7 @@ class ResultadosBusqueda extends Component {
         fetch(`https://api.themoviedb.org/3/search/${tipo}?api_key=${apiKey}&query=${busqueda}`)
             .then(response => response.json())
             .then(data => this.setState(
-                { arrayBusqueda: data.results || []}
+                { arrayBusqueda: data.results || [] }
             ))
             .catch(error => console.log(error))
     }
@@ -31,7 +31,7 @@ class ResultadosBusqueda extends Component {
     render() {
         const tipo = this.props.match.params.tipo;
         return (
-            <section>
+            <section className="row cards">
                 {this.state.arrayBusqueda.length === 0 ? (
                     <Loader />
                 ) : tipo === "movie" ? (

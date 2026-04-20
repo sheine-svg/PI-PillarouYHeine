@@ -18,12 +18,13 @@ class TodasLasSeries extends Component {
     componentDidMount() {
         fetch("https://api.themoviedb.org/3/tv/popular?api_key=" + apiKey)
             .then(response => response.json())
-            .then(data => this.setState(
-                {
+            .then(data => {
+                this.setState({
                     arraySeriesPopulares: data.results,
                     arraySeriesPopularesCopia: data.results
-                }
-            ))
+                })
+                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(data.results));
+                })
             .catch(error => console.log(error))
     }
 
@@ -36,7 +37,7 @@ class TodasLasSeries extends Component {
                     arraySeriesPopularesCopia: this.state.arraySeriesPopularesCopia.concat(data.results),
                     contador: this.state.contador + 1,
                 });
-                localStorage.setItem("contadorSeries", JSON.stringify(this.state.contador + 1));
+                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(this.state.arraySeriesPopulares.concat(data.results)));
             })
             .catch(error => console.log(error))
     }
@@ -61,12 +62,13 @@ class TodasLasSeries extends Component {
     render() {
         return (
             <div>
+                <h2 className="alert alert-primary">Todas las series populares</h2>
+                
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
-                    <label>Buscar una serie</label>
-                    <input type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarSerie}></input>
+                    <label className="buscadorDeTodas">Buscar una serie</label>
+                    <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarSerie}></input>
                 </form>
 
-                <h2 className="alert alert-primary">Todas las series populares</h2>
                 <section className='row cards' id="now-playing">
                     {this.state.arraySeriesPopulares.length === 0 ?
                         <Loader /> :

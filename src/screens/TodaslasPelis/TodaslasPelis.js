@@ -18,11 +18,13 @@ class TodaslasPelis extends Component {
     componentDidMount() {
         fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey)
             .then(response => response.json())
-            .then(data => this.setState(
-                { arrayPeliculasPopulares: data.results,
+            .then(data => {
+                this.setState({
+                    arrayPeliculasPopulares: data.results,
                     arrayPeliculasPopularesCopia: data.results
-                }
-            ))
+                })
+            localStorage.setItem("arrayTodasLasPelis", JSON.stringify(data.results));
+            })
             .catch(error => console.log(error))
     }
 
@@ -35,8 +37,7 @@ class TodaslasPelis extends Component {
                     arrayPeliculasPopularesCopia: this.state.arrayPeliculasPopularesCopia.concat(data.results),
                     contador: this.state.contador + 1,
                 });
-                localStorage.setItem("contadorPelis", JSON.stringify(this.state.contador + 1));
-                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(this.state.arrayPeliculasPopulares))
+                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(this.state.arrayPeliculasPopulares.concat(data.results)))
             })
             .catch(error => console.log(error))
     }
@@ -59,15 +60,15 @@ class TodaslasPelis extends Component {
     }
 
     render() {
-        console.log(this.state.contador)
         return (
             <div>
+                <h2 className="alert alert-primary">Todas las películas populares</h2>
+                
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
-                    <label>Buscar una película</label>
-                    <input type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarPeli}></input>
+                    <label className="buscadorDeTodas">Buscar una película</label>
+                    <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarPeli}></input>
                 </form>
 
-                <h2 className="alert alert-primary">Todas las películas populares</h2>
                 <section className='row cards' id="movies">
                     {this.state.arrayPeliculasPopulares.length === 0 ?
                         <Loader /> :

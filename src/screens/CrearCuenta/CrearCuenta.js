@@ -16,14 +16,14 @@ class CrearCuenta extends Component {
         event.preventDefault();
     }
 
-    controlarMail = (event) => {
+    controlarMail(event) {
         this.setState({
             mail: event.target.value
         });
 
     };
 
-    controlarPassword = (event) => {
+    controlarPassword(event) {
         this.setState({
             password: event.target.value
         });
@@ -32,6 +32,12 @@ class CrearCuenta extends Component {
     controlarCampos() {
         let usuariosLocalStorage = localStorage.getItem("usuarios")
         let usuariosParseado = JSON.parse(usuariosLocalStorage)
+        if (this.state.mail === "" || this.state.password === "") {
+            this.setState({
+                error: "Debes completar todos los campos"
+            });
+            return;
+        }
         if (this.state.password.length < 6) {
             this.setState({
                 error: "La contraseña debe tener al menos 6 caracteres"
@@ -41,12 +47,6 @@ class CrearCuenta extends Component {
         if (!this.state.mail.includes("@")) {
             this.setState({
                 error: "El mail debe contener @"
-            });
-            return;
-        }
-        if (this.state.mail === "" || this.state.password === "") {
-            this.setState({
-                error: "Debes completar todos los campos"
             });
             return;
         }
