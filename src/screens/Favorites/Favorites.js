@@ -12,32 +12,49 @@ class Favorites extends Component {
       pelisFiltradas: [],
       seriesFiltradas: [],
       cargandoPelis: true,
-      cargandoSeries: true,
+      cargandoSeries: true
     };
   }
 
   componentDidMount() {
-    let todasLasPelis = JSON.parse(localStorage.getItem("arrayTodasLasPelis"));
     let arrayPelisFavs = JSON.parse(localStorage.getItem("pelisFavs"));
+    let arraySeriesFavs = JSON.parse(localStorage.getItem("seriesFavs"));
 
-    this.setState({
-      pelisFiltradas: todasLasPelis.filter(peli => arrayPelisFavs.includes(peli.id))
-    });
-    if (this.state.pelisFiltradas.length === 0) {
+    if (arrayPelisFavs) {
+      let arrayVacio = [];
+
+      arrayPelisFavs.map(id => {
+        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
+          .then(response => response.json())
+          .then(data => {
+            arrayVacio.push(data)
+            this.setState({
+              pelisFiltradas: arrayVacio,
+            })
+          })
+          .catch(error => console.log(error))
+      })
       this.setState({
-        cargandoPelis: false,
+        cargandoPelis: false
       })
     }
 
-    let todasLasSeries = JSON.parse(localStorage.getItem("arrayTodasLasSeries"));
-    let arraySeriesFavs = JSON.parse(localStorage.getItem("seriesFavs"));
+    if (arraySeriesFavs) {
+      let arrayVacio = [];
 
-    this.setState({
-      seriesFiltradas: todasLasSeries.filter(serie => arraySeriesFavs.includes(serie.id))
-    });
-    if (this.state.seriesFiltradas.length === 0) {
+      arraySeriesFavs.map(id => {
+        fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`)
+          .then(response => response.json())
+          .then(data => {
+            arrayVacio.push(data)
+            this.setState({
+              seriesFiltradas: arrayVacio,
+            })
+          })
+          .catch(error => console.log(error))
+      })
       this.setState({
-        cargandoSeries: false,
+        cargandoSeries: false
       })
     }
   }
@@ -47,7 +64,7 @@ class Favorites extends Component {
       <section className="container">
         <h2 className="alert alert-primary">Peliculas Favoritas</h2>
         {this.state.cargandoPelis ? <Loader /> :
-          this.state.pelisFiltradas.length === 0 ? (<p>Aún no seleccionaste ninguna película como favorita</p>) :
+          this.state.pelisFiltradas.length === 0 ? (<p className="textoSinFav">Aún no seleccionaste ninguna película como favorita</p>) :
             (<section className="row cards">
               {this.state.pelisFiltradas.map(peli => (<UnaPeliPopular key={peli.id} info={peli} />))}
             </section>
@@ -55,7 +72,7 @@ class Favorites extends Component {
 
         <h2 className="alert alert-warning">Series Favoritas</h2>
         {this.state.cargandoSeries ? <Loader /> :
-          this.state.seriesFiltradas.length === 0 ? (<p>Aún no seleccionaste ninguna serie como favorita</p>) :
+          this.state.seriesFiltradas.length === 0 ? (<p className="textoSinFav">Aún no seleccionaste ninguna serie como favorita</p>) :
             (<section className="row cards">
               {this.state.seriesFiltradas.map(serie => (<UnaSeriePopular key={serie.id} info={serie} />))}
             </section>
@@ -64,5 +81,6 @@ class Favorites extends Component {
     )
   }
 }
+
 
 export default Favorites;

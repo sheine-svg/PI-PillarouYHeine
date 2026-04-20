@@ -18,19 +18,19 @@ class Login extends Component {
         event.preventDefault();
     }
 
-    controlarMail = (event) => {
+    controlarMail(event) {
         this.setState({
             mail: event.target.value
         });
     };
 
-    controlarPassword = (event) => {
+    controlarPassword(event) {
         this.setState({
             password: event.target.value
         });
     }
 
-    onSubmit(mail, password){
+    onSubmit(mail, password) {
         let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
         let filtrarUsuario = usuarios.filter(unUsuario =>
@@ -50,7 +50,7 @@ class Login extends Component {
             this.props.history.push("/")
 
             if (this.state.mail) {
-	            cookies.set("user", this.state.mail)
+                cookies.set("user", this.state.mail)
             }
             return;
         } else {
@@ -68,11 +68,11 @@ class Login extends Component {
                     <form onSubmit={(event) => this.evitarSubmit(event)}>
                         <div className="form-group">
                             <label>Email: </label>
-                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} className="form-control" id="email" placeholder="Ingresá tu email"/>
+                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} className="form-control" id="email" placeholder="Ingresá tu email" />
                         </div>
                         <div className="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña"/>
+                            <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña" />
                         </div>
                         {this.state.error}
                         <button onClick={() => this.onSubmit()} type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
@@ -85,5 +85,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-// funciona bien la cookie pero hay q actualizar para q desaparezcan las cosas

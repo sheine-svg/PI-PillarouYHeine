@@ -11,30 +11,30 @@ import TodaslasPelis from "./screens/TodaslasPelis/TodaslasPelis";
 import TodasLasSeries from "./screens/TodasLasSeries/TodasLasSeries";
 import ResultadosBusqueda from "./screens/ResultadosBusqueda/ResultadosBusqueda";
 import Logout from "./screens/Logout/Logout";
-import {Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-      <div className="container">
-        <h1>UdeSA Movies</h1>
-        <Navbar />
+    <div className="container">
+      <h1>UdeSA Movies</h1>
+      <Navbar />
 
-        <Switch>
-          <Route path="/" exact={true} component={Home} />
-          <Route path="/Login" component={Login}/>
-          <Route path="/CrearCuenta" component={CrearCuenta}/>
-          <Route path="/PeliculaDetalle/:id" component={PeliculaDetalle} />
-          <Route path="/SerieDetalle/:id" component={SerieDetalle} />
-          <Route path="/Favorites" component={Favorites} />
-          <Route path="/Logout" component={Logout} />
-          <Route path="/TodaslasPelis" component={TodaslasPelis} />
-          <Route path="/TodasLasSeries" component={TodasLasSeries} />
-          <Route path="/ResultadosBusqueda/:busqueda/:tipo" component={ResultadosBusqueda} />
-          <Route path="*" component={NotFound}/>
-        </Switch>
+      <Switch>
+        <Route path="/" exact={true} component={Home} />
+        <Route path="/Login" component={Login} />
+        <Route path="/CrearCuenta" component={CrearCuenta} />
+        <Route path="/PeliculaDetalle/:id" component={PeliculaDetalle} />
+        <Route path="/SerieDetalle/:id" component={SerieDetalle} />
+        <Route path="/Favorites" component={Favorites} />
+        <Route path="/Logout" component={Logout} />
+        <Route path="/TodaslasPelis" component={TodaslasPelis} />
+        <Route path="/TodasLasSeries" component={TodasLasSeries} />
+        <Route path="/ResultadosBusqueda/:busqueda/:tipo" component={ResultadosBusqueda} />
+        <Route path="*" component={NotFound} />
+      </Switch>
 
-        <Footer />
-      </div>
+      <Footer />
+    </div>
   );
 }
 

@@ -10,7 +10,7 @@ class Logout extends Component {
         }
     }
 
-    cerrarSesion(){
+    cerrarSesion() {
         cookies.remove("user")
         this.props.history.push("/")
     }
@@ -26,5 +26,3 @@ class Logout extends Component {
 }
 
 export default Logout;
-
-// se borra la cookie pero pasa lo mismo que al iniciar sesion, hay que recargar la página

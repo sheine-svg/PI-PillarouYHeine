@@ -5,17 +5,22 @@ nav {
     border-radius: 4px;
     margin-bottom: 20px;
 }
+
 .nav {
     margin: 0 !important;
 }
-.nav a{
+
+.nav a {
     color: #444;
     text-decoration: none;
 }
-.nav a:hover{
+
+.nav a:hover {
     font-weight: bold;
 }
-.search-form, .filter-form {
+
+.search-form,
+.filter-form {
     padding: .5rem 0;
     margin-bottom: 20px;
     display: grid;
@@ -23,17 +28,19 @@ nav {
     column-gap: 5px;
 }
 
-.search-form{
+.search-form {
     width: 100%;
 }
 
 .filter-form {
     grid-template-columns: 1fr;
 }
-.search-form .btn-sm{
+
+.search-form .btn-sm {
     line-height: 1;
     font-size: 0.9rem;
 }
+
 .search-form input,
 .filter-form input {
     border: 1px solid #ccc;
@@ -44,9 +51,11 @@ nav {
     font-size: 1rem;
     padding-bottom: 4px;
 }
+
 .filter-form input {
     line-height: 1.5;
 }
+
 .cards {
     padding: 0.75rem 1.25rem;
     display: flex;
@@ -55,34 +64,43 @@ nav {
     justify-content: space-between;
     margin-bottom: 2%;
 }
+
 .cardBody {
     margin-top: 20px;
     justify-content: center;
 }
+
 .single-card-people {
     width: 19%;
 }
+
 .single-card-movie {
     width: 24%;
 }
+
 .single-card-playing {
     width: 15%;
 }
-#now-playing .card-text{
+
+#now-playing .card-text {
     height: 100px;
     overflow: hidden;
 }
+
 .single-card-tv {
     width: 19%;
 }
-.tv-show .card-text{
+
+.tv-show .card-text {
     height: 100px;
     overflow: hidden;
 }
-.single-card-on-air{
+
+.single-card-on-air {
     width: 15%;
 }
-#on-air-today .card-text{
+
+#on-air-today .card-text {
     height: 100px;
     overflow: hidden;
 }
@@ -103,41 +121,41 @@ nav {
     font-weight: 500;
 }
 
-.loaderContainer{
+.loaderContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.loaderGif{
+.loaderGif {
     width: 80px;
     height: 80px;
 }
 
-.gifError{
+.gifError {
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
 }
 
-.inputOpciones{
+.inputOpciones {
     color: black;
 }
 
-.btn-success{
+.btn-success {
     width: 140px;
     padding: 10px;
     height: 40px;
 }
 
-.buscadorYBoton{
+.buscadorYBoton {
     width: 100%;
     display: flex;
     align-items: flex-start;
 }
 
-.inputBuscador{
+.inputBuscador {
     width: 800px;
     height: 48px;
     padding-left: 12px;
@@ -147,7 +165,7 @@ nav {
     margin-right: 2%;
 }
 
-.mjeErrorBuscador{
+.mjeErrorBuscador {
     margin-top: 10px;
     margin-bottom: 0px;
     color: red;
@@ -155,14 +173,14 @@ nav {
     text-align: center;
 }
 
-.botonBuscador{
+.botonBuscador {
     width: 80px;
     height: 48px;
     font-size: 18px;
     border-radius: 8px;
 }
 
-.opcionesRadio{
+.opcionesRadio {
     width: 15%;
     margin-bottom: 20px;
     text-align: center;
@@ -171,12 +189,12 @@ nav {
     align-items: flex-start;
 }
 
-.opcionRadio{
+.opcionRadio {
     margin: 0px 20px;
     font-size: 20px;
 }
 
-.input-radio{
+.input-radio {
     margin-right: 8px;
 }
 
@@ -193,12 +211,16 @@ nav {
     width: 400px;
 }
 
-@media(max-width: 420px){
+.textoSinFav{
+    font-size: 20px;
+}
+
+@media(max-width: 420px) {
 
     nav {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-around;
     }
 
     .nav-item {
@@ -240,6 +262,10 @@ nav {
         font-size: 20px;
     }
 
+    .alert-warning {
+        font-size: 20px;
+    }
+
     .inputDeTodas {
         width: 210px;
     }
@@ -247,4 +273,8 @@ nav {
     h3 {
         font-size: 25px;
     }
+
+    .textoSinFav{
+        font-size: 15px;
+}
 }

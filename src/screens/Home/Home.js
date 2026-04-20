@@ -3,10 +3,10 @@ import SectionPopular from "../../components/SectionPopular/SectionPopular";
 import SectionSerie from "../../components/sectionSerie/sectionSerie";
 import Buscador from "../../components/Buscador/Buscador";
 
-function Home(){
-    return(
+function Home() {
+    return (
         <div>
-            <Buscador/>
+            <Buscador />
 
             <h2 className="alert alert-primary">Popular movies</h2>
             <SectionPopular />

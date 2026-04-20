@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -14,7 +14,7 @@ class UnaPeliPopular extends Component {
         }
     }
 
-    componentDidMount () {
+    componentDidMount() {
         let recuperoStorage = localStorage.getItem("pelisFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
@@ -26,10 +26,10 @@ class UnaPeliPopular extends Component {
 
     }
 
-    mostrarMas () {
+    mostrarMas() {
         this.setState({
             descripcion: !this.state.descripcion
-        }); 
+        });
     }
 
     agregarOSacarFav() {
@@ -43,14 +43,14 @@ class UnaPeliPopular extends Component {
             this.setState({
                 esFav: false
             });
-        } else{
+        } else {
             favoritos.push(this.props.info.id);
             localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
 
             this.setState({
                 esFav: true
             });
-        }  
+        }
     }
 
     render() {
@@ -59,7 +59,7 @@ class UnaPeliPopular extends Component {
 
         if (this.state.descripcion == false) {
             ver = <p>Ver descripción</p>
-            clase = "hide" 
+            clase = "hide"
         }
         else {
             ver = <p>Ocultar descripción</p>
@@ -82,9 +82,9 @@ class UnaPeliPopular extends Component {
                     <button className='btn btn-primary' onClick={() => this.mostrarMas()}>{ver}</button>
                     {seccion}
                     <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
-                    { cookies.get("user") ? 
-                    (<button onClick={ () => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
-                    : null }
+                    {cookies.get("user") ?
+                        (<button onClick={() => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
+                        : null}
                 </div>
             </article>
         )

@@ -24,7 +24,7 @@ class TodasLasSeries extends Component {
                     arraySeriesPopularesCopia: data.results
                 })
                 localStorage.setItem("arrayTodasLasSeries", JSON.stringify(data.results));
-                })
+            })
             .catch(error => console.log(error))
     }
 
@@ -63,7 +63,7 @@ class TodasLasSeries extends Component {
         return (
             <div>
                 <h2 className="alert alert-primary">Todas las series populares</h2>
-                
+
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
                     <label className="buscadorDeTodas">Buscar una serie</label>
                     <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarSerie}></input>

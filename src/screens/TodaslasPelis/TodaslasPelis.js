@@ -23,7 +23,7 @@ class TodaslasPelis extends Component {
                     arrayPeliculasPopulares: data.results,
                     arrayPeliculasPopularesCopia: data.results
                 })
-            localStorage.setItem("arrayTodasLasPelis", JSON.stringify(data.results));
+                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(data.results));
             })
             .catch(error => console.log(error))
     }
@@ -63,7 +63,7 @@ class TodaslasPelis extends Component {
         return (
             <div>
                 <h2 className="alert alert-primary">Todas las películas populares</h2>
-                
+
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
                     <label className="buscadorDeTodas">Buscar una película</label>
                     <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarPeli}></input>
