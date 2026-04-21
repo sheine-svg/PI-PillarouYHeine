@@ -51,5 +51,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-// funciona bien la cookie pero hay q actualizar para q desaparezcan las cosas
