@@ -1,94 +1,77 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-class UnaPeliPopular extends Component {
+function UnaPeliPopular(props) {
+    const [descripcion, setDescripcion] = useState(false);
+    const [esFav, setEsFav] = useState(false);
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            descripcion: false,
-            esFav: false
-        }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         let recuperoStorage = localStorage.getItem("pelisFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
-        if (favoritos.includes(this.props.info.id)) {
-            this.setState({
-                esFav: true
-            });
+        if (favoritos.includes(props.info.id)) {
+            setEsFav(true);
         }
+    }, [])
 
+    function mostrarMas() {
+        setDescripcion(!descripcion);
     }
 
-    mostrarMas() {
-        this.setState({
-            descripcion: !this.state.descripcion
-        });
-    }
-
-    agregarOSacarFav() {
+    function agregarOSacarFav() {
         let recuperoStorage = localStorage.getItem("pelisFavs");
         let favoritos = JSON.parse(recuperoStorage) || [];
 
-        if (favoritos.includes(this.props.info.id)) {
-            let pelisFiltradas = favoritos.filter(id => id !== this.props.info.id);
+        if (favoritos.includes(props.info.id)) {
+            let pelisFiltradas = favoritos.filter(id => id !== props.info.id);
             localStorage.setItem("pelisFavs", JSON.stringify(pelisFiltradas));
 
-            this.setState({
-                esFav: false
-            });
+            setEsFav(false);
         } else {
-            favoritos.push(this.props.info.id);
+            favoritos.push(props.info.id);
             localStorage.setItem("pelisFavs", JSON.stringify(favoritos));
 
-            this.setState({
-                esFav: true
-            });
+            setEsFav(true);
         }
     }
 
-    render() {
-        let ver;
-        let clase;
+    let ver;
+    let clase;
 
-        if (this.state.descripcion == false) {
-            ver = <p>Ver descripción</p>
-            clase = "hide"
-        }
-        else {
-            ver = <p>Ocultar descripción</p>
-            clase = "show card-text"
-        }
-
-        let seccion;
-
-        if (this.state.descripcion === true) {
-            seccion = (
-                <p className="card-text">{this.props.info.overview}</p>
-            );
-        }
-
-        return (
-            <article className='single-card-movie'>
-                <img src={`https://image.tmdb.org/t/p/w342/${this.props.info.poster_path}`} alt="" className="card-img-top" />
-                <div className="cardBody">
-                    <h5 className="card-title">{this.props.info.title}</h5>
-                    <button className='btn btn-primary' onClick={() => this.mostrarMas()}>{ver}</button>
-                    {seccion}
-                    <Link className="btn btn-primary" to={`/PeliculaDetalle/${this.props.info.id}`}>Detalle Pelicula</Link>
-                    {cookies.get("user") ?
-                        (<button onClick={() => this.agregarOSacarFav()} type="button" className="btn alert-primary">{this.state.esFav ? "❤️" : "🩶"}</button>)
-                        : null}
-                </div>
-            </article>
-        )
+    if (descripcion == false) {
+        ver = <p>Ver descripción</p>
+        clase = "hide"
     }
+    else {
+        ver = <p>Ocultar descripción</p>
+        clase = "show card-text"
+    }
+
+    let seccion;
+
+    if (descripcion === true) {
+        seccion = (
+            <p className="card-text">{props.info.overview}</p>
+        );
+    }
+
+    return (
+        <article className='single-card-movie'>
+            <img src={`https://image.tmdb.org/t/p/w342/${props.info.poster_path}`} alt="" className="card-img-top" />
+            <div className="cardBody">
+                <h5 className="card-title">{props.info.title}</h5>
+                <button className='btn btn-primary' onClick={() => mostrarMas()}>{ver}</button>
+                {seccion}
+                <Link className="btn btn-primary" to={`/PeliculaDetalle/${props.info.id}`}>Detalle Pelicula</Link>
+                {cookies.get("user") ?
+                    (<button onClick={() => agregarOSacarFav()} type="button" className="btn alert-primary">{esFav ? "❤️" : "🩶"}</button>)
+                    : null}
+            </div>
+        </article>
+    )
 }
 
 export default UnaPeliPopular;

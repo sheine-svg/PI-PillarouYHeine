@@ -38,12 +38,7 @@ class Login extends Component {
             unUsuario.password === this.state.password
         )
 
-        if (usuarios.length === 0) {
-            this.setState({
-                error: "La contraseña o mail es incorrecto"
-            });
-            return;
-        } else if (filtrarUsuario.length > 0) {
+        if (filtrarUsuario.length > 0) {
             this.setState({
                 error: "Usuario correcto!"
             })

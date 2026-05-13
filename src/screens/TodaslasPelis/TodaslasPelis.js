@@ -1,87 +1,76 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import UnaPeliPopular from "../../components/UnaPeliPopular/UnaPeliPopular";
 import Loader from "../../components/Loader/Loader";
 
 const apiKey = "ca76634b9f3c10dbf49b0d77c7b2db49";
 
-class TodaslasPelis extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            arrayPeliculasPopulares: [],
-            contador: 1,
-            buscarPeli: "",
-            arrayPeliculasPopularesCopia: [],
-        }
-    }
+function TodaslasPelis(props) {
+    const [arrayPeliculasPopulares, setArrayPeliculasPopulares] = useState([]);
+    const [contador, setContador] = useState(1);
+    const [buscarPeli, setBuscarPeli] = useState("");
+    const [arrayPeliculasPopularesCopia, setArrayPeliculasPopularesCopia] = useState([]);
 
-    componentDidMount() {
+    useEffect(() => {
         fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey)
             .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    arrayPeliculasPopulares: data.results,
-                    arrayPeliculasPopularesCopia: data.results
-                })
-                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(data.results));
-            })
+            .then(data => 
+                {   
+                    setArrayPeliculasPopulares(data.results)
+                    setArrayPeliculasPopularesCopia(data.results)
+                    localStorage.setItem("arrayTodasLasPelis", JSON.stringify(data.results))
+            }
+        )
             .catch(error => console.log(error))
-    }
+    }, [])
 
-    cargarMasPeliculas() {
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.contador + 1}`)
+    function cargarMasPeliculas() {
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${contador + 1}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({
-                    arrayPeliculasPopulares: this.state.arrayPeliculasPopulares.concat(data.results),
-                    arrayPeliculasPopularesCopia: this.state.arrayPeliculasPopularesCopia.concat(data.results),
-                    contador: this.state.contador + 1,
-                });
-                localStorage.setItem("arrayTodasLasPelis", JSON.stringify(this.state.arrayPeliculasPopulares.concat(data.results)))
+                setArrayPeliculasPopulares(arrayPeliculasPopulares.concat(data.results))
+                    setArrayPeliculasPopularesCopia(arrayPeliculasPopularesCopia.concat(data.results),
+                        setContador(contador + 1))
+                    localStorage.setItem("arrayTodasLasPelis", JSON.stringify(arrayPeliculasPopulares.concat(data.results)))
             })
             .catch(error => console.log(error))
     }
 
-    evitarSubmit(event) {
+    function evitarSubmit(event) {
         event.preventDefault();
     }
 
-    controlarCambios(event) {
-        this.setState({ buscarPeli: event.target.value });
+    function controlarCambios(event) {
+        setBuscarPeli(event.target.value);
 
-        if (this.state.buscarPeli != "") {
-            let pelisFiltradas = this.state.arrayPeliculasPopularesCopia.filter(peli =>
-                peli.title.toLowerCase().includes(this.state.buscarPeli.toLowerCase()));
+        if (buscarPeli != "") {
+            let pelisFiltradas = arrayPeliculasPopularesCopia.filter(peli =>
+                peli.title.toLowerCase().includes(buscarPeli.toLowerCase()));
 
-            this.setState({
-                arrayPeliculasPopulares: pelisFiltradas
-            })
+            setArrayPeliculasPopulares(pelisFiltradas)
         }
     }
 
-    render() {
-        return (
-            <div>
-                <h2 className="alert alert-primary">Todas las películas populares</h2>
+    return (
+        <div>
+            <h2 className="alert alert-primary">Todas las películas populares</h2>
 
-                <form onSubmit={(event) => this.evitarSubmit(event)}>
-                    <label className="buscadorDeTodas">Buscar una película</label>
-                    <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarPeli}></input>
-                </form>
+            <form onSubmit={(event) => evitarSubmit(event)}>
+                <label className="buscadorDeTodas">Buscar una película</label>
+                <input className="inputDeTodas" type="text" onChange={(event) => controlarCambios(event)} value={buscarPeli}></input>
+            </form>
 
-                <section className='row cards' id="movies">
-                    {this.state.arrayPeliculasPopulares.length === 0 ?
-                        <Loader /> :
-                        this.state.arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} />)
-                    }
-                </section>
+            <section className='row cards' id="movies">
+                {arrayPeliculasPopulares.length === 0 ?
+                    <Loader /> :
+                    arrayPeliculasPopulares.map(peli => <UnaPeliPopular key={peli.id} info={peli} />)
+                }
+            </section>
 
-                <section>
-                    <button className="btn btn-primary" onClick={() => this.cargarMasPeliculas()}>Más películas</button>
-                </section>
-            </div>
-        )
-    }
+            <section>
+                <button className="btn btn-primary" onClick={() => cargarMasPeliculas()}>Más películas</button>
+            </section>
+        </div>
+    )
 }
 
 export default TodaslasPelis;
