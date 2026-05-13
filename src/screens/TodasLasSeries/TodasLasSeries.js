@@ -1,87 +1,74 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import UnaSeriePopular from "../../components/UnaSeriePopular/UnaSeriePopular";
 import Loader from "../../components/Loader/Loader";
 
 const apiKey = "ca76634b9f3c10dbf49b0d77c7b2db49";
 
-class TodasLasSeries extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            arraySeriesPopulares: [],
-            contador: 1,
-            buscarSerie: "",
-            arraySeriesPopularesCopia: [],
-        }
-    }
+function TodasLasSeries() {
+    const [arraySeriesPopulares, setArraySeriesPopulares] = useState([]);
+    const [contador, setContador] = useState(1);
+    const [buscarSerie, setBuscarSerie] = useState("");
+    const [arraySeriesPopularesCopia, setArraySeriesPopularesCopia] = useState([]);
 
-    componentDidMount() {
+    useEffect(() => {
         fetch("https://api.themoviedb.org/3/tv/popular?api_key=" + apiKey)
             .then(response => response.json())
             .then(data => {
-                this.setState({
-                    arraySeriesPopulares: data.results,
-                    arraySeriesPopularesCopia: data.results
-                })
-                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(data.results));
+                setArraySeriesPopulares(data.results)
+                setArraySeriesPopularesCopia(data.results)
+                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(data.results))
             })
             .catch(error => console.log(error))
-    }
+    }, [])
 
-    cargarMasSeries() {
-        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${this.state.contador + 1}`)
+    function cargarMasSeries() {
+        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${contador + 1}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({
-                    arraySeriesPopulares: this.state.arraySeriesPopulares.concat(data.results),
-                    arraySeriesPopularesCopia: this.state.arraySeriesPopularesCopia.concat(data.results),
-                    contador: this.state.contador + 1,
-                });
-                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(this.state.arraySeriesPopulares.concat(data.results)));
+                setArraySeriesPopulares(arraySeriesPopulares.concat(data.results),
+                setArraySeriesPopularesCopia(arraySeriesPopularesCopia.concat(data.results)),
+                setContador(contador + 1))
+                localStorage.setItem("arrayTodasLasSeries", JSON.stringify(arraySeriesPopulares.concat(data.results)))
             })
             .catch(error => console.log(error))
     }
 
-    evitarSubmit(event) {
+    function evitarSubmit(event) {
         event.preventDefault();
     }
 
-    controlarCambios(event) {
-        this.setState({ buscarSerie: event.target.value });
+    function controlarCambios(event) {
+        setBuscarSerie(event.target.value)
 
-        if (this.state.buscarSerie != "") {
-            let seriesFiltradas = this.state.arraySeriesPopularesCopia.filter(serie =>
-                serie.name.toLowerCase().includes(this.state.buscarSerie.toLowerCase()));
+        if (buscarSerie != "") {
+            let seriesFiltradas = arraySeriesPopularesCopia.filter(serie =>
+                serie.name.toLowerCase().includes(buscarSerie.toLowerCase()));
 
-            this.setState({
-                arraySeriesPopulares: seriesFiltradas
-            })
+            setArraySeriesPopulares(seriesFiltradas)
         }
     }
 
-    render() {
-        return (
-            <div>
-                <h2 className="alert alert-primary">Todas las series populares</h2>
+    return (
+        <div>
+            <h2 className="alert alert-primary">Todas las series populares</h2>
 
-                <form onSubmit={(event) => this.evitarSubmit(event)}>
-                    <label className="buscadorDeTodas">Buscar una serie</label>
-                    <input className="inputDeTodas" type="text" onChange={(event) => this.controlarCambios(event)} value={this.state.buscarSerie}></input>
-                </form>
+            <form onSubmit={(event) => evitarSubmit(event)}>
+                <label className="buscadorDeTodas">Buscar una serie</label>
+                <input className="inputDeTodas" type="text" onChange={(event) => controlarCambios(event)} value={buscarSerie}></input>
+            </form>
 
-                <section className='row cards' id="now-playing">
-                    {this.state.arraySeriesPopulares.length === 0 ?
-                        <Loader /> :
-                        this.state.arraySeriesPopulares.map(serie => <UnaSeriePopular key={serie.id} info={serie} />)
-                    }
-                </section>
+            <section className='row cards' id="now-playing">
+                {arraySeriesPopulares.length === 0 ?
+                    <Loader /> :
+                    arraySeriesPopulares.map(serie => <UnaSeriePopular key={serie.id} info={serie} />)
+                }
+            </section>
 
-                <section>
-                    <button className="btn btn-primary" onClick={() => this.cargarMasSeries()}>Más series</button>
-                </section>
-            </div>
-        )
-    }
+            <section>
+                <button className="btn btn-primary" onClick={() => cargarMasSeries()}>Más series</button>
+            </section>
+        </div>
+    )
 }
 
 export default TodasLasSeries;
