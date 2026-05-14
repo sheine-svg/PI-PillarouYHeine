@@ -1,82 +1,67 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mail: "",
-            password: "",
-            error: "",
-        };
-    }
+function Login(props) {
+    const [mail, setMail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    evitarSubmit(event) {
+    function evitarSubmit(event) {
         event.preventDefault();
     }
 
-    controlarMail(event) {
-        this.setState({
-            mail: event.target.value
-        });
-    };
-
-    controlarPassword(event) {
-        this.setState({
-            password: event.target.value
-        });
+    function controlarMail(event) {
+        setMail(event.targer.value)
     }
 
-    onSubmit(mail, password) {
+    function controlarPassword(event) {
+        setPassword(event.targer.value)
+    }
+
+    function onSubmit() {
         let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
         let filtrarUsuario = usuarios.filter(unUsuario =>
-            unUsuario.mail === this.state.mail &&
-            unUsuario.password === this.state.password
+            unUsuario.mail === mail &&
+            unUsuario.password === password
         )
 
         if (filtrarUsuario.length > 0) {
-            this.setState({
-                error: "Usuario correcto!"
-            })
-            this.props.history.push("/")
+            setError("¡Uusario correcto!")
+            props.history.push("/")
 
-            if (this.state.mail) {
-                cookies.set("user", this.state.mail)
+            if (mail) {
+                cookies.set("user", mail)
             }
             return;
         } else {
-            this.setState({
-                error: "Credenciales incorrectas"
-            });
+            setError("Credenciales incorrectas")
             return;
         }
+    }
 
-    }
-    render() {
-        return (
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <form onSubmit={(event) => this.evitarSubmit(event)}>
-                        <div className="form-group">
-                            <label>Email: </label>
-                            <input type="email" onChange={(event) => this.controlarMail(event)} value={this.state.mail} className="form-control" id="email" placeholder="Ingresá tu email" />
-                        </div>
-                        <div className="form-group">
-                            <label>Contraseña:</label>
-                            <input type="password" value={this.state.password} onChange={(event) => this.controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña" />
-                        </div>
-                        {this.state.error}
-                        <button onClick={() => this.onSubmit()} type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
-                    </form>
-                    <p className="mt-3 text-center">¿No tenés cuenta? <Link to="/CrearCuenta">Registrarse</Link></p>
-                </div>
+    return (
+        <div className="row justify-content-center">
+            <div className="col-md-6">
+                <form onSubmit={(event) => evitarSubmit(event)}>
+                    <div className="form-group">
+                        <label>Email: </label>
+                        <input type="email" onChange={(event) => controlarMail(event)} value={mail} className="form-control" id="email" placeholder="Ingresá tu email" />
+                    </div>
+                    <div className="form-group">
+                        <label>Contraseña:</label>
+                        <input type="password" value={password} onChange={(event) => controlarPassword(event)} className="form-control" id="password" placeholder="Ingresá tu contraseña" />
+                    </div>
+                    {error}
+                    <button onClick={() => onSubmit()} type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
+                </form>
+                <p className="mt-3 text-center">¿No tenés cuenta? <Link to="/CrearCuenta">Registrarse</Link></p>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default Login;
